@@ -1,4 +1,4 @@
-package br.com.dbengine;
+package br.com.dbengine.test;
 
 import java.io.File;
 import java.io.FileOutputStream;
