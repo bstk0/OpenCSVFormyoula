@@ -56,7 +56,8 @@ public class CSVtoSheet2Impl {
 		for (String s : result) {
 			System.out.println(s);
 			try {
-				loadWriteSheet(FILE_PATH, SHEET_NAME, s, sheet);
+				//loadWriteSheet(FILE_PATH, SHEET_NAME, s, sheet);
+				loadWriteSheetLogistica(FILE_PATH, SHEET_NAME, s, sheet);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -65,7 +66,6 @@ public class CSVtoSheet2Impl {
 				e.printStackTrace();
 			}
 		}
-       
       
         // Write the output to a file
         FileOutputStream fileOut;
@@ -115,6 +115,42 @@ public class CSVtoSheet2Impl {
         }
         //reader.close();
 	}
+	
+	private void loadWriteSheetLogistica(final String FILE_PATH, final String SHEET_NAME,String fileName, HSSFSheet sheet)
+			throws FileNotFoundException, IOException {
+		//Workbook wb = new HSSFWorkbook();
+        CreationHelper helper = sheet.getWorkbook().getCreationHelper();
+        int rowCount = 0;
+        if (sheet.getLastRowNum() == 0) {
+        	setJumpHeader(false);
+        } else {
+        	setJumpHeader(true);
+        	rowCount = sheet.getLastRowNum()+1;
+        }
+
+        @SuppressWarnings("resource")
+		CSVReader reader = new CSVReader(new FileReader(FILE_PATH + fileName));
+        String[] line;
+        //int r = 0;
+        while ((line = reader.readNext()) != null) {
+            if (isJumpHeader()) {
+            	setJumpHeader(false);
+            	continue;
+            }
+        	//line - rows
+            Row row = sheet.createRow((short) rowCount++);
+            //colunas
+            row.createCell(0).setCellValue(helper.createRichTextString(line[9]));
+            row.createCell(1).setCellValue(helper.createRichTextString(line[11]));
+            row.createCell(2).setCellValue(helper.createRichTextString(line[54]));
+            row.createCell(3).setCellValue(helper.createRichTextString(line[27]));
+            row.createCell(4).setCellValue(helper.createRichTextString(line[17]));
+            row.createCell(5).setCellValue(helper.createRichTextString(line[57]));
+            
+        }
+        //reader.close();
+	}
+
 	
 	private HSSFSheet getSheet(final HSSFWorkbook wb, String SHEET_NAME) {
 	       
