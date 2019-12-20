@@ -11,11 +11,13 @@ public class ListFiles {
 		// final File folder = new File("C:\\projects");
 		// final File folder = new File("E:/OneDrive - Infosys
 		// Limited/Syngenta/Formyoula/Complaints");
-		final File folder = new File("C://Users/rodrigo.bisterco/Downloads");
+		// OK : final File folder = new File("C://Users/rodrigo.bisterco/Downloads");
+		final File folder = new File("E://OneDrive - Infosys Limited/Syngenta/Formyoula/Complaints/Report_Auditoria");
 
 		List<String> result = new ArrayList<>();
 
-		search(".*\\.csv", folder, result);
+		//search(".*\\.csv", folder, result);
+		search("F.*\\.csv", folder, result);
 
 		for (String s : result) {
 			System.out.println(s);
@@ -32,7 +34,8 @@ public class ListFiles {
 
 			if (f.isFile()) {
 				if (f.getName().matches(pattern)) {
-					result.add(f.getAbsolutePath());
+					//result.add(f.getAbsolutePath()); //full path
+					result.add(f.getName());
 				}
 			}
 
